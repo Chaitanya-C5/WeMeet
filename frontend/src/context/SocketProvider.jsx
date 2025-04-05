@@ -5,7 +5,7 @@ const SocketContext = createContext(null);
 
 export const SocketProvider = ({ children }) => {
 
-    const socket = useMemo(() => io("http://localhost:3000", { autoConnect: false }), []);
+    const socket = useMemo(() => io("https://wemeet-backend-bxjm.onrender.com", { autoConnect: false }), []);
 
     useEffect(() => {
         socket.connect();

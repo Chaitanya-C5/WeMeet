@@ -1,6 +1,8 @@
 import { Server } from "socket.io";
+import { config } from "dotenv";
 
-const io = new Server(3000, { cors: true });
+config();
+const io = new Server(process.env.PORT, { cors: true });
 
 const emailToSocket = new Map();
 const socketToEmail = new Map();
