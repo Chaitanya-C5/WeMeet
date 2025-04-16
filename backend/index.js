@@ -2,7 +2,12 @@ import { Server } from "socket.io";
 import { config } from "dotenv";
 
 config();
-const io = new Server(process.env.PORT, { cors: true });
+const io = new Server(process.env.PORT, {
+    cors: {
+      origin: ["https://wemeet-1g0e.onrender.com"],
+      methods: ["GET", "POST"]
+    }
+  });
 
 const emailToSocket = new Map();
 const socketToEmail = new Map();
@@ -47,9 +52,19 @@ io.on("connection", (socket) => {
 
     socket.on("disconnect", () => {
         console.log("User disconnected:", socket.id);
-        // users.delete(socket.id);
-        // io.emit("user-joined", users);
-    });
+      
+        const email = socketToEmail.get(socket.id);
+        emailToSocket.delete(email);
+        socketToEmail.delete(socket.id);
+      
+        for (const [room, users] of roomUsers.entries()) {
+          const updatedUsers = users.filter(user => user.socketId !== socket.id);
+          roomUsers.set(room, updatedUsers);
+      
+          io.to(room).emit("user-joined", updatedUsers);
+        }
+      });
+      
 
     // socket.on("answer-call", (data) => {
     //     const { socketId, answer } = data;
