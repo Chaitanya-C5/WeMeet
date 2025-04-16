@@ -24,6 +24,7 @@ function Room1() {
 
   const handleUsers = useCallback((users) => {
     setUsers(users);
+    console.log("Users in room:", users);
   }, []);
 
   useEffect(() => {
