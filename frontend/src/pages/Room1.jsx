@@ -26,6 +26,10 @@ function Room1() {
     setUsers(users);
   }, []);
 
+  useEffect(() => {
+    console.log(users);
+  }, [users]);
+
   const handleCall = useCallback(async (remoteSocketId) => {
     setRemoteSocketId(remoteSocketId);
     const stream = await peer.getMediaStream();
