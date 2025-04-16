@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSocket } from '../hooks/useSocket';
 import { Phone } from 'lucide-react';
+import ReactPlayer from 'react-player'
 import peer from '../service/peer';
 
 function Room1() {
@@ -175,10 +176,10 @@ function Room1() {
 
       <div className="flex gap-4 mt-6">
         {localStream && (
-          <video ref={localVideoRef} autoPlay playsInline className="w-1/2 h-auto border border-green-500 rounded-md" />
+          <ReactPlayer playing muted url={localStream} className="w-1/2 h-auto border border-green-500 rounded-md" />
         )}
         {remoteStream && (
-          <video ref={remoteVideoRef} autoPlay playsInline className="w-1/2 h-auto border border-blue-500 rounded-md" />
+          <ReactPlayer playing muted url={remoteStream} className="w-1/2 h-auto border border-blue-500 rounded-md" />
         )}
       </div>
     </div>
