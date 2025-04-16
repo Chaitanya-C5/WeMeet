@@ -117,29 +117,29 @@ function Room1() {
     };
   }, [socket, getSocketId, handleUsers, handleIncommingCall, handleCallAccepted, handleICECandidate]);
 
-  useEffect(() => {
-    if (!socket.connected) {
-      socket.connect();
-    }
+  // useEffect(() => {
+  //   if (!socket.connected) {
+  //     socket.connect();
+  //   }
   
-    const joinRoom = () => {
-      socket.emit("join-room", {
-        name: "Mobile User", // set dynamic name if needed
-        email: "mobile@example.com", // dynamic email if possible
-        room: roomId
-      });
-    };
+  //   const joinRoom = () => {
+  //     socket.emit("join-room", {
+  //       name: "Mobile User", // set dynamic name if needed
+  //       email: "mobile@example.com", // dynamic email if possible
+  //       room: roomId
+  //     });
+  //   };
   
-    if (socket.connected) {
-      joinRoom();
-    } else {
-      socket.on("connect", joinRoom);
-    }
+  //   if (socket.connected) {
+  //     joinRoom();
+  //   } else {
+  //     socket.on("connect", joinRoom);
+  //   }
   
-    return () => {
-      socket.off("connect", joinRoom);
-    };
-  }, [socket, roomId]);
+  //   return () => {
+  //     socket.off("connect", joinRoom);
+  //   };
+  // }, [socket, roomId]);
   
 
   return (
