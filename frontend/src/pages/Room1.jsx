@@ -123,13 +123,6 @@ function Room1() {
     };
   }, [socket, getSocketId, handleUsers, handleIncommingCall, handleCallAccepted, handleICECandidate]);
 
-  useEffect(() => {
-    if (!socket.connected) {
-      socket.connect();
-    }
-    
-  }, [socket]);
-  
 
   return (
     <div className="flex w-full h-screen items-center flex-col bg-gray-900">
