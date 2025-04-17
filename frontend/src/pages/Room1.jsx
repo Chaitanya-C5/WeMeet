@@ -32,12 +32,15 @@ function Room1() {
 
   const handleUsers = useCallback((users) => {
     setUsers(users);
-    console.log("Users in room:", users);
   }, []);
 
   useEffect(() => {
-    console.log(users, "jj ", socket.connected);
-  }, [users, socket]);
+    socket.on("user-joined", handleUsers);
+    console.log("Users in room:", users);
+    return () => {
+        socket.off("user-joined", handleUsers);
+    }
+  }, [users, socket.connected, handleUsers, socket]);
 
   const handleCall = useCallback(async (remoteSocketId) => {
     setRemoteSocketId(remoteSocketId);
@@ -117,14 +120,12 @@ function Room1() {
   useEffect(() => {
     socket.emit("getSocketId");
     socket.on("socket-id", getSocketId);
-    socket.on("user-joined", handleUsers);
     socket.on("incomming:call", handleIncommingCall);
     socket.on("call-accepted", handleCallAccepted);
     socket.on("ice-candidate", handleICECandidate);
 
     return () => {
       socket.off("socket-id", getSocketId);
-      socket.off("user-joined", handleUsers);
       socket.off("incomming:call", handleIncommingCall);
       socket.off("call-accepted", handleCallAccepted);
       socket.off("ice-candidate", handleICECandidate);
