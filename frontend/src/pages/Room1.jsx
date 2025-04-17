@@ -37,6 +37,10 @@ function Room1() {
   useEffect(() => {
     socket.on("user-joined", handleUsers);
     console.log("Users in room:", users);
+    while(users.length() == 0) {
+      socket.on("user-joined", handleUsers);
+      console.log("Users in room:", users);
+    }
     return () => {
         socket.off("user-joined", handleUsers);
     }
