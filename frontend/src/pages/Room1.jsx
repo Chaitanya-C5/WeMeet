@@ -36,8 +36,8 @@ function Room1() {
   }, []);
 
   useEffect(() => {
-    console.log(users);
-  }, [users]);
+    console.log(users, "jj ", socket.connected);
+  }, [users, socket]);
 
   const handleCall = useCallback(async (remoteSocketId) => {
     setRemoteSocketId(remoteSocketId);
