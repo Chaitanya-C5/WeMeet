@@ -22,6 +22,14 @@ function Room1() {
     setMySocketId(socketId);
   }, []);
 
+  useEffect(() => {
+    if(socket.connected) {
+      console.log("not connected")
+    } else {
+      console.log("connected")
+    }
+  }, [socket.connected])
+
   const handleUsers = useCallback((users) => {
     setUsers(users);
     console.log("Users in room:", users);
